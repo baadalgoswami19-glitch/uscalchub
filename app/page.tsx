@@ -2,74 +2,86 @@ const calculators = [
   {
     icon: "💵",
     title: "Paycheck Calculator",
-    description: "Estimate your take-home pay after federal and state taxes.",
+    description: "Estimate your take-home pay after federal and payroll taxes.",
     tag: "Popular",
+    href: "/paycheck-calculator",
   },
   {
     icon: "💼",
     title: "Salary Calculator",
     description: "Convert annual salary into hourly, weekly, monthly and daily pay.",
     tag: "Popular",
+    href: "#",
   },
   {
     icon: "⏱️",
     title: "Overtime Calculator",
-    description: "Calculate overtime earnings using your hourly pay rate.",
+    description: "Calculate overtime earnings from your hourly pay rate.",
     tag: "Work",
+    href: "#",
   },
   {
     icon: "💰",
     title: "Tip Calculator",
-    description: "Quickly calculate tips and split the bill with your group.",
+    description: "Calculate tips and split your restaurant bill with ease.",
     tag: "Everyday",
+    href: "#",
   },
   {
     icon: "🏷️",
     title: "Discount Calculator",
-    description: "Find sale prices, savings and final costs instantly.",
+    description: "Calculate sale prices and see exactly how much you save.",
     tag: "Shopping",
+    href: "#",
   },
   {
     icon: "🧾",
     title: "Sales Tax Calculator",
     description: "Calculate sales tax and the final purchase price.",
     tag: "Money",
+    href: "#",
   },
   {
     icon: "🏦",
     title: "Loan Calculator",
-    description: "Estimate monthly payments, total interest and loan cost.",
+    description: "Estimate monthly payments and total loan interest.",
     tag: "Finance",
+    href: "#",
   },
   {
     icon: "🏠",
     title: "Mortgage Calculator",
-    description: "Estimate your monthly mortgage payment and total cost.",
+    description: "Estimate monthly mortgage payments and total cost.",
     tag: "Home",
+    href: "#",
   },
   {
     icon: "📈",
     title: "Compound Interest",
-    description: "See how your money can grow with compound interest.",
+    description: "See how your money can grow through compound interest.",
     tag: "Finance",
+    href: "#",
   },
   {
     icon: "🚗",
     title: "Auto Loan Calculator",
-    description: "Estimate car loan payments based on price and interest.",
+    description: "Estimate monthly car loan payments and interest.",
     tag: "Auto",
+    href: "#",
   },
   {
     icon: "🎓",
     title: "Student Loan Calculator",
-    description: "Estimate student loan payments and interest over time.",
+    description: "Estimate student loan payments and total interest.",
     tag: "Education",
+    href: "#",
   },
   {
     icon: "💳",
     title: "Debt Payoff Calculator",
-    description: "Build a simple plan to estimate when your debt can be paid off.",
+    description: "Estimate how long it may take to pay off your debt.",
     tag: "Finance",
+    href: "#",
   },
 ];
 
@@ -82,10 +94,16 @@ const categories = [
   { icon: "🔢", name: "Everyday", count: "5+ tools" },
 ];
 
+const guides = [
+  "How Much Is $30 an Hour a Year?",
+  "How Does Overtime Pay Work?",
+  "How Is Take-Home Pay Calculated?",
+];
+
 export default function Home() {
   return (
     <main>
-      {/* Navbar */}
+      {/* NAVBAR */}
       <header className="container" style={{ paddingTop: 20 }}>
         <nav
           className="glass"
@@ -122,6 +140,7 @@ export default function Home() {
             >
               $
             </span>
+
             USCalc<span style={{ color: "#7fa9ff" }}>Hub</span>
           </a>
 
@@ -155,7 +174,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero */}
+      {/* HERO */}
       <section
         className="hero-glow"
         style={{
@@ -210,7 +229,7 @@ export default function Home() {
             mortgages, loans, taxes and everyday decisions.
           </p>
 
-          {/* Search */}
+          {/* SEARCH */}
           <div
             style={{
               maxWidth: 650,
@@ -260,15 +279,19 @@ export default function Home() {
             }}
           >
             <span>Popular:</span>
-            <a href="#calculators" style={{ color: "#aeb9ca" }}>
+
+            <a href="/paycheck-calculator" style={{ color: "#aeb9ca" }}>
               Paycheck
             </a>
+
             <a href="#calculators" style={{ color: "#aeb9ca" }}>
               Mortgage
             </a>
+
             <a href="#calculators" style={{ color: "#aeb9ca" }}>
               Loan
             </a>
+
             <a href="#calculators" style={{ color: "#aeb9ca" }}>
               Tip
             </a>
@@ -276,7 +299,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust strip */}
+      {/* TRUST STRIP */}
       <section className="container">
         <div
           className="glass"
@@ -298,7 +321,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* CATEGORIES */}
       <section
         id="categories"
         className="container"
@@ -362,7 +385,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Calculator section */}
+      {/* CALCULATORS */}
       <section
         id="calculators"
         className="container"
@@ -408,7 +431,7 @@ export default function Home() {
               fontSize: 13,
             }}
           >
-            12 tools available
+            12 tools
           </span>
         </div>
 
@@ -420,8 +443,9 @@ export default function Home() {
           }}
         >
           {calculators.map((calculator) => (
-            <article
+            <a
               key={calculator.title}
+              href={calculator.href}
               className="glass card"
               style={{
                 padding: 24,
@@ -498,12 +522,12 @@ export default function Home() {
                   Open calculator →
                 </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
 
-      {/* Guides */}
+      {/* GUIDES */}
       <section
         id="guides"
         style={{
@@ -543,17 +567,18 @@ export default function Home() {
               gap: 16,
             }}
           >
-            {[
-              "How Much Is $30 an Hour a Year?",
-              "How Does Overtime Pay Work?",
-              "How Is Take-Home Pay Calculated?",
-            ].map((guide) => (
+            {guides.map((guide) => (
               <article
                 key={guide}
                 className="glass card"
                 style={{ padding: 24 }}
               >
-                <div style={{ color: "#7f8da3", fontSize: 12 }}>
+                <div
+                  style={{
+                    color: "#7f8da3",
+                    fontSize: 12,
+                  }}
+                >
                   MONEY GUIDE
                 </div>
 
@@ -582,7 +607,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="container" style={{ padding: "50px 0 35px" }}>
         <div
           style={{
