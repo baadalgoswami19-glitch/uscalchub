@@ -1,58 +1,163 @@
-"use client";
-
-import { useState } from "react";
-
-const frequencyOptions = [
-  { name: "Hourly", divisor: 2080 },
-  { name: "Weekly", divisor: 52 },
-  { name: "Biweekly", divisor: 26 },
-  { name: "Semi-monthly", divisor: 24 },
-  { name: "Monthly", divisor: 12 },
-  { name: "Annual", divisor: 1 },
+const calculators = [
+  {
+    title: "Paycheck Calculator",
+    description:
+      "Estimate your take-home pay after federal taxes, Social Security and Medicare.",
+    category: "Money",
+    href: "/paycheck-calculator",
+    popular: true,
+  },
+  {
+    title: "Salary Calculator",
+    description:
+      "Convert hourly, weekly, biweekly, monthly and annual pay into equivalent salary amounts.",
+    category: "Money",
+    href: "/salary-calculator",
+    popular: true,
+  },
+  {
+    title: "Overtime Calculator",
+    description:
+      "Calculate overtime pay, regular wages and total earnings.",
+    category: "Work",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Tip Calculator",
+    description:
+      "Calculate tips quickly and split restaurant bills between multiple people.",
+    category: "Everyday",
+    href: "#",
+    popular: true,
+  },
+  {
+    title: "Discount Calculator",
+    description:
+      "Find sale prices, savings and final costs after discounts.",
+    category: "Money",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Sales Tax Calculator",
+    description:
+      "Calculate sales tax and the final purchase price.",
+    category: "Money",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Loan Calculator",
+    description:
+      "Estimate monthly payments, total interest and total loan cost.",
+    category: "Loans",
+    href: "#",
+    popular: true,
+  },
+  {
+    title: "Mortgage Calculator",
+    description:
+      "Estimate mortgage payments, interest and total home financing costs.",
+    category: "Home",
+    href: "#",
+    popular: true,
+  },
+  {
+    title: "Compound Interest Calculator",
+    description:
+      "See how your money can grow with compound interest over time.",
+    category: "Investing",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Auto Loan Calculator",
+    description:
+      "Estimate car payments, interest and total financing costs.",
+    category: "Loans",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Student Loan Calculator",
+    description:
+      "Estimate student loan payments and total repayment costs.",
+    category: "Education",
+    href: "#",
+    popular: false,
+  },
+  {
+    title: "Debt Payoff Calculator",
+    description:
+      "Create a simple plan to estimate how long it may take to pay off debt.",
+    category: "Money",
+    href: "#",
+    popular: false,
+  },
 ];
 
-function money(value: number) {
-  return value.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2,
-  });
-}
+const categories = [
+  {
+    name: "Money",
+    description: "Salary, paycheck, taxes and everyday money tools.",
+    icon: "$",
+  },
+  {
+    name: "Loans",
+    description: "Loan payments, interest and repayment calculators.",
+    icon: "↗",
+  },
+  {
+    name: "Home",
+    description: "Mortgage and home affordability calculations.",
+    icon: "⌂",
+  },
+  {
+    name: "Work",
+    description: "Salary, overtime and employment calculators.",
+    icon: "▣",
+  },
+  {
+    name: "Investing",
+    description: "Interest, savings and long-term growth tools.",
+    icon: "◈",
+  },
+  {
+    name: "Everyday",
+    description: "Tips, discounts and useful daily calculations.",
+    icon: "✓",
+  },
+];
 
-export default function SalaryCalculator() {
-  const [amount, setAmount] = useState("30");
-  const [frequency, setFrequency] = useState("Hourly");
-  const [hoursPerWeek, setHoursPerWeek] = useState("40");
+const guides = [
+  {
+    title: "How much is $30 an hour per year?",
+    description:
+      "Learn how hourly pay translates into weekly, monthly and annual income.",
+  },
+  {
+    title: "How does a US paycheck work?",
+    description:
+      "Understand gross pay, federal taxes, Social Security and Medicare deductions.",
+  },
+  {
+    title: "How much house can I afford?",
+    description:
+      "Understand the basic factors that influence mortgage affordability.",
+  },
+];
 
-  const inputAmount = Math.max(0, Number(amount) || 0);
-  const hours = Math.max(1, Number(hoursPerWeek) || 40);
-
-  let annualSalary = 0;
-
-  if (frequency === "Hourly") {
-    annualSalary = inputAmount * hours * 52;
-  } else if (frequency === "Weekly") {
-    annualSalary = inputAmount * 52;
-  } else if (frequency === "Biweekly") {
-    annualSalary = inputAmount * 26;
-  } else if (frequency === "Semi-monthly") {
-    annualSalary = inputAmount * 24;
-  } else if (frequency === "Monthly") {
-    annualSalary = inputAmount * 12;
-  } else {
-    annualSalary = inputAmount;
-  }
-
-  const hourly = annualSalary / (hours * 52);
-  const weekly = annualSalary / 52;
-  const biweekly = annualSalary / 26;
-  const semiMonthly = annualSalary / 24;
-  const monthly = annualSalary / 12;
-
+export default function Home() {
   return (
     <main>
       {/* HEADER */}
-      <header className="container" style={{ paddingTop: 20 }}>
+      <header
+        className="container"
+        style={{
+          paddingTop: 20,
+        }}
+      >
         <nav
           className="glass"
           style={{
@@ -81,416 +186,831 @@ export default function SalaryCalculator() {
                 borderRadius: 11,
                 display: "grid",
                 placeItems: "center",
-                background: "linear-gradient(135deg, #4f8cff, #7c5cff)",
+                background:
+                  "linear-gradient(135deg, #4f8cff, #7c5cff)",
+                boxShadow:
+                  "0 8px 25px rgba(79,140,255,0.25)",
               }}
             >
               $
             </span>
 
-            USCalc<span style={{ color: "#7fa9ff" }}>Hub</span>
+            USCalc
+            <span style={{ color: "#7fa9ff" }}>Hub</span>
           </a>
 
-          <a
-            href="/"
+          <div
             style={{
-              color: "#9ca6b5",
+              display: "flex",
+              alignItems: "center",
+              gap: 22,
               fontSize: 13,
+              color: "#9ca6b5",
             }}
           >
-            ← All calculators
-          </a>
+            <a href="#calculators">Calculators</a>
+            <a href="#guides">Guides</a>
+          </div>
         </nav>
       </header>
 
-      {/* MAIN */}
+      {/* HERO */}
       <section
-        className="container"
+        className="hero-glow"
         style={{
-          maxWidth: 1000,
-          padding: "65px 0 80px",
+          padding: "95px 0 70px",
         }}
       >
-        {/* TITLE */}
         <div
+          className="container"
           style={{
             textAlign: "center",
-            marginBottom: 42,
           }}
         >
           <div
             style={{
-              color: "#709cff",
-              fontSize: 12,
+              display: "inline-block",
+              padding: "8px 13px",
+              borderRadius: 999,
+              border:
+                "1px solid rgba(79,140,255,0.18)",
+              background:
+                "rgba(79,140,255,0.06)",
+              color: "#7fa9ff",
+              fontSize: 11,
               fontWeight: 800,
-              letterSpacing: 1.5,
-              marginBottom: 12,
+              letterSpacing: 1.2,
+              textTransform: "uppercase",
             }}
           >
-            US SALARY CALCULATOR
+            Free tools for everyday life
           </div>
 
           <h1
             style={{
-              fontSize: "clamp(36px, 6vw, 60px)",
-              lineHeight: 1.05,
-              letterSpacing: "-3px",
-              margin: 0,
+              maxWidth: 900,
+              margin: "24px auto 0",
+              fontSize: "clamp(44px, 8vw, 82px)",
+              lineHeight: 0.98,
+              letterSpacing: "-5px",
+              fontWeight: 900,
             }}
           >
-            Turn your pay into an{" "}
+            Smart calculators for{" "}
             <span className="gradient-text">
-              annual salary
+              life in the USA
             </span>
           </h1>
 
           <p
             style={{
+              maxWidth: 680,
+              margin: "24px auto 0",
               color: "#929baa",
-              maxWidth: 650,
-              margin: "18px auto 0",
-              lineHeight: 1.7,
+              fontSize: 17,
+              lineHeight: 1.75,
             }}
           >
-            Convert hourly, weekly, biweekly, monthly or annual
-            pay into an easy-to-understand salary breakdown.
+            Free, fast and easy-to-use calculators for
+            salary, paycheck, loans, mortgages, taxes,
+            tips and everyday decisions.
           </p>
+
+          {/* SEARCH */}
+          <div
+            style={{
+              maxWidth: 650,
+              margin: "35px auto 0",
+              position: "relative",
+            }}
+          >
+            <input
+              type="search"
+              placeholder="Search calculators..."
+              aria-label="Search calculators"
+              style={{
+                width: "100%",
+                padding: "18px 20px",
+                borderRadius: 16,
+                background:
+                  "rgba(13,17,24,0.85)",
+                border:
+                  "1px solid rgba(255,255,255,0.1)",
+                color: "#fff",
+                outline: "none",
+                fontSize: 14,
+                boxShadow:
+                  "0 15px 50px rgba(0,0,0,0.25)",
+              }}
+            />
+          </div>
+
+          {/* QUICK LINKS */}
+          <div
+            style={{
+              marginTop: 18,
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: 9,
+            }}
+          >
+            <a
+              href="/paycheck-calculator"
+              style={{
+                padding: "9px 13px",
+                borderRadius: 999,
+                background:
+                  "rgba(255,255,255,0.04)",
+                border:
+                  "1px solid rgba(255,255,255,0.07)",
+                color: "#aab3c1",
+                fontSize: 11,
+              }}
+            >
+              Paycheck Calculator
+            </a>
+
+            <a
+              href="/salary-calculator"
+              style={{
+                padding: "9px 13px",
+                borderRadius: 999,
+                background:
+                  "rgba(255,255,255,0.04)",
+                border:
+                  "1px solid rgba(255,255,255,0.07)",
+                color: "#aab3c1",
+                fontSize: 11,
+              }}
+            >
+              Salary Calculator
+            </a>
+
+            <a
+              href="#calculators"
+              style={{
+                padding: "9px 13px",
+                borderRadius: 999,
+                background:
+                  "rgba(255,255,255,0.04)",
+                border:
+                  "1px solid rgba(255,255,255,0.07)",
+                color: "#aab3c1",
+                fontSize: 11,
+              }}
+            >
+              View all tools
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST STRIP */}
+      <section className="container">
+        <div
+          className="glass"
+          style={{
+            borderRadius: 18,
+            padding: "18px 22px",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: 15,
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <strong style={{ fontSize: 17 }}>
+              100% Free
+            </strong>
+            <div
+              style={{
+                color: "#717b8a",
+                fontSize: 11,
+                marginTop: 4,
+              }}
+            >
+              No signup required
+            </div>
+          </div>
+
+          <div>
+            <strong style={{ fontSize: 17 }}>
+              Fast Results
+            </strong>
+            <div
+              style={{
+                color: "#717b8a",
+                fontSize: 11,
+                marginTop: 4,
+              }}
+            >
+              Instant calculations
+            </div>
+          </div>
+
+          <div>
+            <strong style={{ fontSize: 17 }}>
+              USA Focused
+            </strong>
+            <div
+              style={{
+                color: "#717b8a",
+                fontSize: 11,
+                marginTop: 4,
+              }}
+            >
+              Built for US users
+            </div>
+          </div>
+
+          <div>
+            <strong style={{ fontSize: 17 }}>
+              Mobile Friendly
+            </strong>
+            <div
+              style={{
+                color: "#717b8a",
+                fontSize: 11,
+                marginTop: 4,
+              }}
+            >
+              Works on every screen
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section
+        className="container"
+        style={{
+          padding: "85px 0 30px",
+        }}
+      >
+        <div
+          style={{
+            marginBottom: 30,
+          }}
+        >
+          <div
+            style={{
+              color: "#709cff",
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 1.4,
+              textTransform: "uppercase",
+            }}
+          >
+            Browse by category
+          </div>
+
+          <h2
+            style={{
+              margin: "10px 0 0",
+              fontSize: "clamp(30px, 5vw, 45px)",
+              letterSpacing: "-2px",
+            }}
+          >
+            Find the right tool
+          </h2>
         </div>
 
-        {/* CALCULATOR */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 18,
+              "repeat(auto-fit, minmax(170px, 1fr))",
+            gap: 13,
           }}
         >
-          {/* INPUT */}
-          <section
-            className="glass card"
-            style={{ padding: 26 }}
-          >
+          {categories.map((category) => (
+            <a
+              href="#calculators"
+              key={category.name}
+              className="glass card"
+              style={{
+                padding: 20,
+              }}
+            >
+              <div
+                style={{
+                  width: 38,
+                  height: 38,
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: 11,
+                  background:
+                    "rgba(79,140,255,0.09)",
+                  border:
+                    "1px solid rgba(79,140,255,0.12)",
+                  color: "#7fa9ff",
+                  fontWeight: 800,
+                  marginBottom: 14,
+                }}
+              >
+                {category.icon}
+              </div>
+
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: 15,
+                }}
+              >
+                {category.name}
+              </h3>
+
+              <p
+                style={{
+                  color: "#737d8c",
+                  fontSize: 11,
+                  lineHeight: 1.6,
+                  marginBottom: 0,
+                }}
+              >
+                {category.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* CALCULATORS */}
+      <section
+        id="calculators"
+        className="container"
+        style={{
+          padding: "70px 0 40px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "end",
+            justifyContent: "space-between",
+            gap: 20,
+            marginBottom: 30,
+          }}
+        >
+          <div>
+            <div
+              style={{
+                color: "#709cff",
+                fontSize: 11,
+                fontWeight: 800,
+                letterSpacing: 1.4,
+                textTransform: "uppercase",
+              }}
+            >
+              All calculators
+            </div>
+
             <h2
               style={{
-                marginTop: 0,
-                fontSize: 20,
+                margin: "10px 0 0",
+                fontSize: "clamp(30px, 5vw, 45px)",
+                letterSpacing: "-2px",
               }}
             >
-              Enter your pay
+              Popular tools
             </h2>
+          </div>
 
-            <label
+          <span
+            style={{
+              color: "#606b7a",
+              fontSize: 11,
+            }}
+          >
+            More tools coming soon
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: 15,
+          }}
+        >
+          {calculators.map((calculator) => (
+            <a
+              href={calculator.href}
+              key={calculator.title}
+              className="glass card"
               style={{
-                display: "block",
-                marginTop: 24,
-                color: "#aeb7c5",
-                fontSize: 13,
+                padding: 22,
+                position: "relative",
               }}
             >
-              Pay amount
+              {calculator.popular && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 17,
+                    right: 17,
+                    padding: "5px 8px",
+                    borderRadius: 999,
+                    background:
+                      "rgba(124,92,255,0.1)",
+                    color: "#a58fff",
+                    fontSize: 9,
+                    fontWeight: 800,
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  POPULAR
+                </span>
+              )}
 
               <div
                 style={{
-                  display: "flex",
-                  marginTop: 8,
+                  width: 42,
+                  height: 42,
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: 13,
+                  background:
+                    "linear-gradient(135deg, rgba(79,140,255,0.12), rgba(124,92,255,0.1))",
+                  border:
+                    "1px solid rgba(79,140,255,0.13)",
+                  color: "#8eb1ff",
+                  fontWeight: 800,
+                  marginBottom: 18,
                 }}
               >
-                <span
-                  style={{
-                    padding: "14px 13px",
-                    background: "#151b25",
-                    border:
-                      "1px solid rgba(255,255,255,0.1)",
-                    borderRight: 0,
-                    borderRadius: "12px 0 0 12px",
-                    color: "#8993a3",
-                  }}
-                >
-                  $
-                </span>
-
-                <input
-                  type="number"
-                  min="0"
-                  value={amount}
-                  onChange={(e) =>
-                    setAmount(e.target.value)
-                  }
-                  style={{
-                    width: "100%",
-                    padding: "14px",
-                    background: "#0b0f15",
-                    border:
-                      "1px solid rgba(255,255,255,0.1)",
-                    color: "#fff",
-                    borderRadius: "0 12px 12px 0",
-                    outline: "none",
-                  }}
-                />
+                {calculator.title
+                  .split(" ")
+                  .map((word) => word[0])
+                  .slice(0, 2)
+                  .join("")}
               </div>
-            </label>
 
-            <label
-              style={{
-                display: "block",
-                marginTop: 20,
-                color: "#aeb7c5",
-                fontSize: 13,
-              }}
-            >
-              Pay frequency
-
-              <select
-                value={frequency}
-                onChange={(e) =>
-                  setFrequency(e.target.value)
-                }
+              <div
                 style={{
-                  width: "100%",
-                  marginTop: 8,
-                  padding: "14px",
-                  borderRadius: 12,
-                  background: "#0b0f15",
-                  border:
-                    "1px solid rgba(255,255,255,0.1)",
-                  color: "#fff",
-                  outline: "none",
+                  color: "#71809a",
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                  fontWeight: 800,
                 }}
               >
-                {frequencyOptions.map((option) => (
-                  <option
-                    key={option.name}
-                    value={option.name}
-                  >
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+                {calculator.category}
+              </div>
 
-            <label
-              style={{
-                display: "block",
-                marginTop: 20,
-                color: "#aeb7c5",
-                fontSize: 13,
-              }}
-            >
-              Hours per week
-
-              <input
-                type="number"
-                min="1"
-                max="168"
-                value={hoursPerWeek}
-                onChange={(e) =>
-                  setHoursPerWeek(e.target.value)
-                }
+              <h3
                 style={{
-                  width: "100%",
-                  marginTop: 8,
-                  padding: "14px",
-                  borderRadius: 12,
-                  background: "#0b0f15",
-                  border:
-                    "1px solid rgba(255,255,255,0.1)",
-                  color: "#fff",
-                  outline: "none",
+                  margin: "7px 0 8px",
+                  fontSize: 17,
                 }}
-              />
-            </label>
+              >
+                {calculator.title}
+              </h3>
 
-            <div
-              style={{
-                marginTop: 24,
-                padding: 15,
-                borderRadius: 12,
-                background: "rgba(79,140,255,0.07)",
-                border:
-                  "1px solid rgba(79,140,255,0.12)",
-                color: "#8f9bad",
-                fontSize: 11,
-                lineHeight: 1.6,
-              }}
-            >
-              The calculator assumes 52 working weeks per
-              year. Change your weekly hours if you normally
-              work a different schedule.
-            </div>
-          </section>
+              <p
+                style={{
+                  color: "#737d8c",
+                  fontSize: 12,
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {calculator.description}
+              </p>
 
-          {/* RESULT */}
-          <section
-            className="glass card"
-            style={{ padding: 26 }}
-          >
-            <div
-              style={{
-                color: "#7f8da3",
-                fontSize: 12,
-                textTransform: "uppercase",
-                letterSpacing: 1.2,
-              }}
-            >
-              Estimated annual salary
-            </div>
-
-            <div
-              style={{
-                fontSize: "clamp(40px, 6vw, 58px)",
-                fontWeight: 900,
-                letterSpacing: "-3px",
-                marginTop: 10,
-              }}
-            >
-              {money(annualSalary)}
-            </div>
-
-            <div
-              style={{
-                color: "#7e8999",
-                fontSize: 13,
-                marginTop: 6,
-              }}
-            >
-              estimated gross income per year
-            </div>
-
-            <div
-              style={{
-                marginTop: 30,
-                display: "grid",
-                gap: 1,
-                background: "rgba(255,255,255,0.07)",
-              }}
-            >
-              {[
-                ["Hourly", money(hourly)],
-                ["Weekly", money(weekly)],
-                ["Biweekly", money(biweekly)],
-                ["Semi-monthly", money(semiMonthly)],
-                ["Monthly", money(monthly)],
-                ["Annual", money(annualSalary)],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "14px 12px",
-                    background: "#0d1118",
-                    fontSize: 13,
-                  }}
-                >
-                  <span style={{ color: "#8d97a7" }}>
-                    {label}
-                  </span>
-
-                  <strong>{value}</strong>
-                </div>
-              ))}
-            </div>
-          </section>
+              <div
+                style={{
+                  marginTop: 18,
+                  color: "#7fa9ff",
+                  fontSize: 11,
+                  fontWeight: 700,
+                }}
+              >
+                Open calculator →
+              </div>
+            </a>
+          ))}
         </div>
+      </section>
 
-        {/* SEO CONTENT */}
-        <article
-          style={{
-            marginTop: 65,
-            color: "#9aa4b2",
-            lineHeight: 1.8,
-          }}
-        >
-          <h2 style={{ color: "#fff" }}>
-            How the salary calculator works
-          </h2>
-
-          <p>
-            The USCalcHub salary calculator converts your pay
-            rate into equivalent hourly, weekly, biweekly,
-            semi-monthly, monthly and annual amounts.
-          </p>
-
-          <h2
-            style={{
-              color: "#fff",
-              marginTop: 38,
-            }}
-          >
-            How much is $30 an hour per year?
-          </h2>
-
-          <p>
-            Assuming 40 hours per week and 52 weeks per year,
-            $30 per hour equals approximately $62,400 in gross
-            annual income before taxes and other deductions.
-          </p>
-
-          <h2
-            style={{
-              color: "#fff",
-              marginTop: 38,
-            }}
-          >
-            How much is $25 an hour per year?
-          </h2>
-
-          <p>
-            At 40 hours per week for 52 weeks, $25 per hour
-            equals approximately $52,000 in gross annual
-            income.
-          </p>
-
-          <h2
-            style={{
-              color: "#fff",
-              marginTop: 38,
-            }}
-          >
-            Does this calculator include taxes?
-          </h2>
-
-          <p>
-            No. This tool calculates gross income. Taxes,
-            benefits, retirement contributions and other
-            payroll deductions can reduce your actual
-            take-home pay.
-          </p>
-        </article>
-
-        {/* DISCLAIMER */}
+      {/* GUIDES */}
+      <section
+        id="guides"
+        className="container"
+        style={{
+          padding: "80px 0",
+        }}
+      >
         <div
           style={{
-            marginTop: 40,
-            padding: 18,
-            borderRadius: 14,
-            background: "rgba(255,255,255,0.035)",
-            color: "#717b8a",
-            fontSize: 11,
-            lineHeight: 1.7,
+            marginBottom: 30,
           }}
         >
-          <strong style={{ color: "#9ca6b5" }}>
-            Disclaimer:
-          </strong>{" "}
-          Results are estimates for informational purposes
-          only. Actual earnings may differ based on your work
-          schedule, unpaid time off, overtime and other
-          circumstances.
+          <div
+            style={{
+              color: "#709cff",
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 1.4,
+              textTransform: "uppercase",
+            }}
+          >
+            Guides & learning
+          </div>
+
+          <h2
+            style={{
+              margin: "10px 0 0",
+              fontSize: "clamp(30px, 5vw, 45px)",
+              letterSpacing: "-2px",
+            }}
+          >
+            Understand your numbers
+          </h2>
+
+          <p
+            style={{
+              color: "#737d8c",
+              maxWidth: 650,
+              lineHeight: 1.7,
+              fontSize: 13,
+            }}
+          >
+            Simple explanations to help you understand
+            salaries, taxes, loans and everyday financial
+            calculations.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: 15,
+          }}
+        >
+          {guides.map((guide) => (
+            <article
+              className="glass card"
+              key={guide.title}
+              style={{
+                padding: 23,
+              }}
+            >
+              <div
+                style={{
+                  color: "#7fa9ff",
+                  fontSize: 11,
+                  fontWeight: 800,
+                }}
+              >
+                USCalcHub Guide
+              </div>
+
+              <h3
+                style={{
+                  margin: "12px 0 9px",
+                  fontSize: 17,
+                  lineHeight: 1.35,
+                }}
+              >
+                {guide.title}
+              </h3>
+
+              <p
+                style={{
+                  margin: 0,
+                  color: "#737d8c",
+                  fontSize: 12,
+                  lineHeight: 1.7,
+                }}
+              >
+                {guide.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section
+        className="container"
+        style={{
+          paddingBottom: 80,
+        }}
+      >
+        <div
+          className="glass"
+          style={{
+            borderRadius: 25,
+            padding: "50px 25px",
+            textAlign: "center",
+            background:
+              "linear-gradient(135deg, rgba(79,140,255,0.08), rgba(124,92,255,0.06))",
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontSize: "clamp(28px, 5vw, 44px)",
+              letterSpacing: "-2px",
+            }}
+          >
+            Calculate smarter.
+          </h2>
+
+          <p
+            style={{
+              maxWidth: 550,
+              margin: "15px auto 25px",
+              color: "#7f8998",
+              lineHeight: 1.7,
+              fontSize: 13,
+            }}
+          >
+            Use USCalcHub to quickly estimate the numbers
+            that matter in your everyday life.
+          </p>
+
+          <a
+            href="#calculators"
+            style={{
+              display: "inline-block",
+              padding: "13px 20px",
+              borderRadius: 12,
+              background:
+                "linear-gradient(135deg, #4f8cff, #7c5cff)",
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: 800,
+              boxShadow:
+                "0 12px 30px rgba(79,140,255,0.2)",
+            }}
+          >
+            Explore calculators
+          </a>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer
-        className="container"
         style={{
-          padding: "30px 0 45px",
-          textAlign: "center",
-          color: "#596372",
-          fontSize: 11,
+          borderTop:
+            "1px solid rgba(255,255,255,0.06)",
+          background: "rgba(0,0,0,0.15)",
         }}
       >
-        © 2026 USCalcHub
+        <div
+          className="container"
+          style={{
+            padding: "45px 0 25px",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(180px, 1fr))",
+              gap: 35,
+            }}
+          >
+            {/* BRAND */}
+            <div>
+              <a
+                href="/"
+                style={{
+                  fontWeight: 800,
+                  fontSize: 19,
+                }}
+              >
+                USCalc
+                <span style={{ color: "#7fa9ff" }}>
+                  Hub
+                </span>
+              </a>
+
+              <p
+                style={{
+                  color: "#646e7d",
+                  fontSize: 11,
+                  lineHeight: 1.7,
+                  maxWidth: 280,
+                  marginTop: 12,
+                }}
+              >
+                Free, simple and useful calculators
+                designed for everyday life in the USA.
+              </p>
+            </div>
+
+            {/* TOOLS */}
+            <div>
+              <strong
+                style={{
+                  fontSize: 12,
+                }}
+              >
+                Calculators
+              </strong>
+
+              <div
+                style={{
+                  display: "grid",
+                  gap: 9,
+                  marginTop: 14,
+                  color: "#687282",
+                  fontSize: 11,
+                }}
+              >
+                <a href="/paycheck-calculator">
+                  Paycheck Calculator
+                </a>
+
+                <a href="/salary-calculator">
+                  Salary Calculator
+                </a>
+
+                <a href="#calculators">
+                  All Calculators
+                </a>
+              </div>
+            </div>
+
+            {/* COMPANY */}
+            <div>
+              <strong
+                style={{
+                  fontSize: 12,
+                }}
+              >
+                USCalcHub
+              </strong>
+
+              <div
+                style={{
+                  display: "grid",
+                  gap: 9,
+                  marginTop: 14,
+                  color: "#687282",
+                  fontSize: 11,
+                }}
+              >
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+              </div>
+            </div>
+
+            {/* LEGAL */}
+            <div>
+              <strong
+                style={{
+                  fontSize: 12,
+                }}
+              >
+                Legal
+              </strong>
+
+              <div
+                style={{
+                  display: "grid",
+                  gap: 9,
+                  marginTop: 14,
+                  color: "#687282",
+                  fontSize: 11,
+                }}
+              >
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Disclaimer</a>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              borderTop:
+                "1px solid rgba(255,255,255,0.05)",
+              marginTop: 35,
+              paddingTop: 20,
+              display: "flex",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 10,
+              color: "#505a68",
+              fontSize: 10,
+            }}
+          >
+            <span>© 2026 USCalcHub</span>
+
+            <span>
+              Built for everyday calculations in the USA
+            </span>
+          </div>
+        </div>
       </footer>
     </main>
   );
